@@ -1,9 +1,11 @@
 from faker import Faker
 from pymongo import MongoClient
 import csv
-from blogrpdit.login import credentials
+from models import LoginCreds
 
-client = MongoClient(credentials)
+
+login = LoginCreds()
+client = MongoClient(f'mongodb+srv://{login.usr}:{login.passwd}@cluster0.bkmts.mongodb.net/{login.db}?retryWrites=true&w=majority')
 my_col = client.myc
 
 fake = Faker()
