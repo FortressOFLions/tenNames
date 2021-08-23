@@ -1,9 +1,8 @@
 from django.shortcuts import render
-from .models import  Names
+from .models import  Names, LoginCreds # from models, import the classes Names and Login Creds
 from faker import Faker
 from pymongo import MongoClient
 import socket
-
 
 
 
@@ -17,7 +16,8 @@ def index(request):
     return render(request, 'index.html', {'persons': test})
 
 def ten_names():
-    client = MongoClient('') # REPLACE THIS WITH YOUR OWN CONNECTION STRING, CAN COPY PASTE DIRECTLY FROM MONGODB ATLAS
+    login = LoginCreds() # store an instance of the object LoginCreds in the variable login
+    client = MongoClient(f'mongodb+srv://{login.usr}:{login.passwd}@cluster0.bkmts.mongodb.net/{login.db}?retryWrites=true&w=majority') 
     db = client['ten_names']
     my_col = db['myc']
 
@@ -34,4 +34,6 @@ def ten_names():
         people.append(name)
         
     return people
+
+# Edited 8/23/21: Created a more secure storage/import method for the DB connection information
 
