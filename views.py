@@ -10,7 +10,7 @@ import socket
 
 
 def index(request):
-    socket.getaddrinfo('localhost', 8000)
+    socket.getaddrinfo('localhost', 8000) # resolve getaddrinfo failure error 
     test = ten_names()
     return render(request, 'index.html', {'persons': test})
 
