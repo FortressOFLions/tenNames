@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE HTML>
+<!--
+	Hyperspace by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+
+				<!-- Two -->
+					<section id="two" class="wrapper style3 fade-up">
+						<div class="inner">
+							<h2>tenNames</h2>
+							<p>A webapp I developed to print 10 random names/addresses from a database of 1000 names that were randomly generated and inserted into a mongoDB database.</p>
+							<div class="features">
+								{% for person in persons %}
+								<section>
+									<span class="icon solid major fa-book"></span>
+									<h3>{{person.name}}</h3>
+									<p>{{person.street}}, {{person.city}}, {{person.zipcode}}</p>
+								</section>
+								{% endfor %}
+
+							</div>
+							<ul class="actions">
+								<li><a href="https://github.com/FortressOFLions/tenNames" class="button">GitHub Page</a></li>
+							</ul>
+						</div>
+					</section>
+
+
