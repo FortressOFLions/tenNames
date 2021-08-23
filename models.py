@@ -1,7 +1,5 @@
 from django.db import models
 
-# Create your models here.
-
 class Names():
     id : str
     name : str
@@ -18,7 +16,7 @@ class LoginCreds(): # Mongodb Connection information
         self.col = 'collection_name'
         
     def connections(self):
-        client = MongoClient(f'mongodb+srv://{self.usr}:{self.passwd}@cluster0.bkmts.mongodb.net/{self.db}?retryWrites=true&w=majority') # REPLACE THIS WITH YOUR OWN CONNECTION STRING, CAN COPY PASTE DIRECTLY FROM MONGODB ATLAS
+        client = MongoClient(f'mongodb+srv://{self.usr}:{self.passwd}@cluster0.bkmts.mongodb.net/{self.db}?retryWrites=true&w=majority') 
         my_db = client[self.db]
         my_col = my_db[self.col]
         return my_db, my_col
