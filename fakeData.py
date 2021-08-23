@@ -1,12 +1,9 @@
 from faker import Faker
 from pymongo import MongoClient
 import csv
-from models import LoginCreds
+from blogrpdit.models import LoginCreds
 
 
-login = LoginCreds()
-client = MongoClient(f'mongodb+srv://{login.usr}:{login.passwd}@cluster0.bkmts.mongodb.net/{login.db}?retryWrites=true&w=majority')
-my_col = client.myc
 
 fake = Faker()
 # read contents of CSV into a dictionary 
@@ -17,12 +14,15 @@ def csv_read_into_dict():
     reader = csv.DictReader(doc)
     # Create Loop
     data = []
+    login = LoginCreds()
+    my_db, my_col = login.connections()
     for f in reader:
         # append the line that was just read into the array 'data' as a dictionary
         data.append(dict(f))
         # insert the data into mongoDB
         insertion = my_col.insert_one(dict(f))
     return data
+
 
 # Create a csv doc of made-up data
 def create_data():
@@ -43,4 +43,5 @@ def create_data():
 #         printer.writerow((fake.name(),fake.street_address(), fake.city(), fake.zipcode()))
 
 # Original iteration of the data creation function, I kept in for my own learning sake 
+
 
