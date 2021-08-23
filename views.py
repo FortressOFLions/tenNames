@@ -15,11 +15,9 @@ def index(request):
     return render(request, 'index.html', {'persons': test})
 
 def ten_names():
-    login = LoginCreds() # store an instance of the object LoginCreds in the variable login
-    client = MongoClient(f'mongodb+srv://{login.usr}:{login.passwd}@cluster0.bkmts.mongodb.net/{login.db}?retryWrites=true&w=majority') 
-    db = client['ten_names']
-    my_col = db['myc']
-    
+    login = LoginCreds()
+    my_db, my_col = login.connections()
+
     pipeline = [
         {
             "$sample": {
@@ -27,14 +25,11 @@ def ten_names():
             }
         }
     ]
-    
     test = my_col.aggregate(pipeline)
     people = []
-    
-    
     for name in test:
         people.append(name)
-    
+        
     return people
 
 # Edited 8/23/21: Created a more secure storage/import method for the DB connection information
