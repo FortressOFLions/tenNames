@@ -5,7 +5,12 @@ from blogrpdit.models import LoginCreds
 
 
 
-fake = Faker()
+from faker import Faker
+from pymongo import MongoClient
+import csv
+from blogrpdit.models import LoginCreds
+
+
 # read contents of CSV into a dictionary 
 def csv_read_into_dict():
     # Open Doc
@@ -23,25 +28,24 @@ def csv_read_into_dict():
         insertion = my_col.insert_one(dict(f))
     return data
 
-
 # Create a csv doc of made-up data
 def create_data():
+    # Instantiate Faker
+    fake = Faker()
+    # Open/create document 
     my_doc = open('names.csv', 'w')
+    # Create header 
     header = ['name', 'street', 'city', 'zipcode']
+    # create an instane of a csv.writer and store it in the printer variable
     printer = csv.writer(my_doc)
+    # using the printer object's 'writerow'  funciton,  insert the headers
     printer.writerow(header)
-    for r in range(1000):
+    for r in range(1000): 
+        # writerow each fake piece of data 
         printer.writerow((fake.name(),fake.street_address(), fake.city(), fake.zipcode()))
-
-
-# with open('names.csv', 'w') as my_doc:
-#     fake = Faker()
-#     header = ['name', 'street', 'city', 'zipcode']
-#     printer = csv.writer(my_doc)
-#     printer.writerow(header)
-#     for r in range(1000):
-#         printer.writerow((fake.name(),fake.street_address(), fake.city(), fake.zipcode()))
-
-# Original iteration of the data creation function, I kept in for my own learning sake 
+        
+ 
+# Changelog:
+# 8/23/2021 - deleted outdated function and reformatted code. Commented for my own learning's sake. implimented new mongoDB connection method 
 
 
